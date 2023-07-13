@@ -1,0 +1,54 @@
+{% extends 'header.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+</head>
+
+<body>
+  <center>
+    <h1>Welcome To My 
+      
+      
+        
+      
+      
+      ontact Page</h1>
+    <form name="contact" method="post" action=""></form>
+    {% csrf_token %}
+    <table>
+      <tr>
+        <td>Name</td>
+        <td><input type="text" name="name"></td>
+      </tr>
+      <tr>
+        <td>Email</td>
+        <td><input type="text" name="email"></td>
+      </tr>
+      <tr>
+        <td>Mobile</td>
+        <td><input type="text" name="mobile"></td>
+      </tr>
+      <tr>
+        <td>Remarks</td>
+        <td><textarea name="remarks" id="" cols="21" rows="5"></textarea></td>
+      </tr>
+      <tr>
+        <td colspan="2" align="center">
+          <input type="submit" name="action" value="SUBMIT" class="btn btn-primary">
+
+        </td>
+      </tr>
+    </table>
+</body>
+</center>
+</body>
+
+</html>
+{% endblock %}
