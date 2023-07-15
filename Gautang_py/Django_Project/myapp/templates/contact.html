@@ -13,42 +13,46 @@
 
 <body>
   <center>
-    <h1>Welcome To My 
-      
-      
-        
-      
-      
-      ontact Page</h1>
-    <form name="contact" method="post" action=""></form>
-    {% csrf_token %}
-    <table>
-      <tr>
-        <td>Name</td>
-        <td><input type="text" name="name"></td>
-      </tr>
-      <tr>
-        <td>Email</td>
-        <td><input type="text" name="email"></td>
-      </tr>
-      <tr>
-        <td>Mobile</td>
-        <td><input type="text" name="mobile"></td>
-      </tr>
-      <tr>
-        <td>Remarks</td>
-        <td><textarea name="remarks" id="" cols="21" rows="5"></textarea></td>
-      </tr>
-      <tr>
-        <td colspan="2" align="center">
-          <input type="submit" name="action" value="SUBMIT" class="btn btn-primary">
+    <h1>Welcome To My Contact Page</h1>
+    {% if msg %}
+    <b style="color:blue;">{{msg}}</b>
+    {% endif %}
+    <form name="contact" method="post" action="{% url 'contact' %}">
+      {% csrf_token %}
+      <table>
+        <tr>
+          <td>Name</td>
+          <td><input type="text" name="name"></td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td><input type="text" name="email"></td>
+        </tr>
+        <tr>
+          <td>Mobile</td>
+          <td><input type="text" name="mobile"></td>
+        </tr>
+        <tr>
+          <td>Remarks</td>
+          <td><textarea name="remarks" id="" cols="21" rows="5"></textarea></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center">
+            <input type="submit" name="action" value="SUBMIT" class="btn btn-primary">
 
-        </td>
-      </tr>
-    </table>
-</body>
+          </td>
+        </tr>
+      </table>
+    </form>
 </center>
-</body>
+<h1>Recent Contacts</h1>
+<hr>
+{{contacts}}
+{% for i in contacts %}
+    Name:{{i.name}}<br>
+    Remarks:{{i.remarks}}<br><hr>
+{% endfor %}
 
+</body>
 </html>
 {% endblock %}
