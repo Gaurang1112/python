@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import User,Contact
+from .models import User,Contact,Product
 import requests
 import random
 
@@ -164,3 +164,48 @@ def new_password(request):
     else:
         msg="Password & Confirm Password Does Not Matched"
         return render(request,'new-password.html',{'mobile':mobile,'msg':msg})
+    
+def seller_add_product(request):
+        seller=User.objects.get(email=request.session['email'])
+        if request.method=="POST":
+            Product.objects.create(
+                seller=seller,
+                product_brand=request.POST['product_brand'],
+                product_price=request.POST['product_price'],
+                product_size=request.POST['product_size'],
+                product_pic=request.FILES['product_pic'],
+            )
+            msg="Product Added Successfuly"
+            return render(request,'seller-add-product.html',{'msg':msg})
+        else:
+            return render(request,'seller-add-product.html')
+        
+def seller_view_product(request):
+    seller=User.objects.get(email=request.session['email'])
+    products=Product.objects.filter(seller=seller)
+    return render(request,'seller-view-product.html',{'products':products})
+
+def seller_product_details(request,pk):
+    product=Product.objects.get(pk=pk)
+    return render(request,'seller-product-details.html',{'product':product})
+
+def seller_edit_product(request,pk):
+    product=Product.objects.get(pk=pk)
+    if request.method=="POST":
+        product.product_brand=request.POST['product_brand']
+        product.product_price=request.POST['product_price']
+        product.product_size=request.POST['product_size']
+        try:
+            product.product_pic=request.FILES['product_pic']
+        except:
+            pass
+        product.save()
+        msg="Product Saved Successfully"
+        return render(request,'seller-edit-product.html',{'product':product,'msg':msg})
+    else:
+        return render(request,'seller-edit-product.html',{'product':product})
+    
+def seller_delete_product(request,pk):
+    product=Product.objects.get(pk=pk)
+    product.delete()
+    return redirect('seller-view-product')
