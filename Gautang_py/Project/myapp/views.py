@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import User,Contact,Product
+from .models import User,Contact,Product,Wishlist
 import requests
 import random
 
@@ -28,7 +28,8 @@ def cart(request):
     return render(request,'cart.html')
 
 def category(request):
-    return render(request,'category.html')
+    products=Product.objects.all()
+    return render(request,'category.html',{'products':products})
 
 def confirmation(request):
     return render(request,'confirmation.html')
@@ -189,6 +190,13 @@ def seller_product_details(request,pk):
     product=Product.objects.get(pk=pk)
     return render(request,'seller-product-details.html',{'product':product})
 
+def product_details(request,pk):
+    wishlist_flag=False
+    product=Product.objects.get(pk=pk)
+    user=User.objects.get(email=request.session['email'])
+    return render(request,'product-details.html',{'product':product})
+
+
 def seller_edit_product(request,pk):
     product=Product.objects.get(pk=pk)
     if request.method=="POST":
@@ -212,3 +220,14 @@ def seller_delete_product(request,pk):
 
 def seller_index(request):
     return request(request,'seller-index.html')
+
+def add_to_wishlist(request,pk):
+    product=Product.objects.get(pk=pk)
+    user=User.objects.get(email=request.session['email'])
+    Wishlist.objects.create(user=user,product=product)
+    return render(request,'index.html')
+
+def wishlist(request):
+    user=User.objects.get(email=request.session['email'])
+    wishlists=Wishlist.objects.filter(user=user)
+    return render(request,'wishlist.html',{'wishlists':wishlists})
