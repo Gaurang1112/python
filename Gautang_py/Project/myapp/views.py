@@ -209,3 +209,6 @@ def seller_delete_product(request,pk):
     product=Product.objects.get(pk=pk)
     product.delete()
     return redirect('seller-view-product')
+
+def seller_index(request):
+    return request(request,'seller-index.html')
