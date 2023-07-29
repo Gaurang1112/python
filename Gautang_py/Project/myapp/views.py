@@ -194,7 +194,12 @@ def product_details(request,pk):
     wishlist_flag=False
     product=Product.objects.get(pk=pk)
     user=User.objects.get(email=request.session['email'])
-    return render(request,'product-details.html',{'product':product})
+    try:
+        Wishlist.object.get(user=user,product=product)
+        wishlist_flag=True
+    except:
+        pass
+    return render(request,'product-details.html',{'product':product,'wishlist_flag':wishlist_flag})
 
 
 def seller_edit_product(request,pk):
@@ -225,9 +230,16 @@ def add_to_wishlist(request,pk):
     product=Product.objects.get(pk=pk)
     user=User.objects.get(email=request.session['email'])
     Wishlist.objects.create(user=user,product=product)
-    return render(request,'index.html')
+    return redirect('wishlist')
 
 def wishlist(request):
     user=User.objects.get(email=request.session['email'])
     wishlists=Wishlist.objects.filter(user=user)
     return render(request,'wishlist.html',{'wishlists':wishlists})
+
+def remove_from_wishlist(request,pk):
+    product=Product.objects.get(pk=pk)
+    user=User.objects.get(email=request.session['email'])
+    wishlist=Wishlist.objects.get(user=user,product=product)
+    wishlist.delete()
+    return redirect('wishlist')

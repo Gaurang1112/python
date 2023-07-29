@@ -50,4 +50,4 @@ class Wishlist(models.Model):
     product=models.ForeignKey(Product,on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.user.fanme+"  -  "+self.product_brand
+        return self.user.fname+"  -  "+self.product.product_brand

@@ -95,6 +95,7 @@
                     <!-- Start Best Seller -->
                     <section class="lattest-product-area pb-40 category-list">
                         <div class="row">
+                            {% if wishlists %}
                             {% for i in wishlists %}
                             <!-- single product -->
                           
@@ -122,6 +123,9 @@
                                 </div>
                             </div>
                             {% endfor %}
+                            {% else %}
+                            <h1>No Product In Wishlist</h1>
+                            {% endif %}
                         </div>
                     </section>
                     <!-- End Best Seller -->
