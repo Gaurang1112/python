@@ -1,1 +1,0 @@
-this is file input/output demo using python.this file is appended./n
