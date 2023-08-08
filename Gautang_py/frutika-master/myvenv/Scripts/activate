@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\Administrator\Desktop\Gaurang-github\python\Gautang_py\frutika-master\myvenv"
+VIRTUAL_ENV="C:\Users\Tops\Desktop\python-main\python-main\Gautang_py\frutika-master\myvenv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
